@@ -9,10 +9,10 @@ import time
 import copy
 import os
 
-usersFile = "NEA music game/NEA_Users.csv"
+usersFile = "CSV files/NEA_Users.csv"
 usersFileHeader = ["Username", "Password", "Highscore", "Wins"]
 
-musicFile = "NEA music game/NEA_Music.csv"
+musicFile = "CSV files/NEA_Music.csv"
 musicFileHeader = ["Artist", "Song"]
 
 typeFast = 160
