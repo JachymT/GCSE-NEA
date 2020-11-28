@@ -179,14 +179,15 @@ def musicAdd(fileName, fileheader):
     artist = input(">")
 
     preType("\nSong title",1,0,typeFast)
-    song = input(">")
+    song = input(">").title()
 
     songAll = [item[1] for item in musicList]
-    print (songAll)
 
     if song not in songAll:
-        with open(fileName, "a", newline = "") as file:
-            writer = csv.DictWriter(file, fieldnames = fileheader)
+        musicList.append([artist,song])
+
+        with open(fileName, "a", newline = "") as csvFile:
+            writer = csv.DictWriter(csvFile, fieldnames = fileheader)
             
             writer.writerow({
             "Artist" : artist,
@@ -236,7 +237,7 @@ def gameRound():
 
     #User interaction
     guess = 0
-    preType("Song by {0}".format(ranArtist),1,0.5,typeMid)
+    preType("Song by {0}".format(ranArtist),1,0,typeMid)
     preType("What's the name of this song?",1,0,typeMid)
     preType(" ".join(songHidden).upper(),2,0,typeMid)
     
@@ -275,13 +276,14 @@ def gameHighScore(score):
     elif score == usersCurrent[2] and score != 20:
         preType("you tied for your highscore of {0}!".format(usersCurrent[2]),1,0.5,typeSlow)
 
-    else:
+    elif score != 20:
         target = usersCurrent[2] - score
         preType("you need {0} more points to reach your highscore of {1}!".format(target,usersCurrent[2]),1,0.5,typeSlow)
 
-    if score == 20:
+    elif score == 20:
         usersCurrent[3] += 1
         usersWrite(usersFile,usersFileHeader,usersCurrent[0],usersCurrent[1],usersCurrent[2],usersCurrent[3])
+        preType("A perfect score! You now have {0} score[s] of 20!".format(usersCurrent[3]),1,0.5,typeSlow)
 
 def gameLeaderboard(hide,speed):
     #lamba messes with the list, so i make a copy
@@ -356,7 +358,7 @@ def main(speed):
     elif choice == 3:
         global usersCurrent
         preType("\n === User {0} ===\n === Best Score {1} ===\n === Perfect Scores {2} ===".format(
-                usersCurrent[0],usersCurrent[2],usersCurrent[3]),1,0,typeMid)
+                usersCurrent[0],usersCurrent[2],usersCurrent[3]),1,0,speed)
 
     elif choice == 4:
         preType("""
@@ -370,7 +372,7 @@ def main(speed):
               """,1,0,speed)
 
     elif choice == 5:
-        preType("\nChoose a song to add to the game",1,0.2,speed)
+        preType("\nChoose a song and artist to add to the game",1,0.2,speed)
         musicAdd(musicFile, musicFileHeader)
         musicOrder(musicFile, musicFileHeader)
         musicRead(musicFile, musicFileHeader)
