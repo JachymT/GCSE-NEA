@@ -1,5 +1,5 @@
 #NEA task 1
-#Shell only (no visuals)
+#Shell music game
 
 import random
 import csv
@@ -33,8 +33,9 @@ def preFileFind(fname):
     try:
         find = open(fname, "r")
     except:
-        preType("Files moved, searching for new file path\n To avoid this move the 'data' files next to the code file",1,0,typeSlow)
-        preType("Alerternativly change the file path in the source code",1,0.5,typeSlow)
+        preType("Files moved, searching for new file path",1,0,typeMid)
+        preType("To avoid this move the 'data' files next to the code file",1,0,typeMid)
+        preType("Alerternativly change the file path in the source code",1,0.5,typeMid)
 
         #find the file path
         for root, dirs, files in os.walk("/Users"):
